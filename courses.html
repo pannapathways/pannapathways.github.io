@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Courses & Training - Panna Pathways</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Filter Section Styles */
+    .filter-section {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border: 1px solid #ece8e2;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+    
+    .filter-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    
+    .filter-header h3 {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .filter-badge {
+      background: #0a4d5c;
+      color: white;
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+    
+    .filter-tabs {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+    
+    .filter-btn {
+      padding: 0.6rem 1.5rem;
+      border: 2px solid #eae1d9;
+      background: white;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+    }
+    
+    .filter-btn:hover {
+      border-color: #0a4d5c;
+      background: #f5f9fa;
+    }
+    
+    .filter-btn.active {
+      background: #0a4d5c;
+      color: white;
+      border-color: #0a4d5c;
+    }
+    
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #f5f2ee;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      border: 1px solid #eae1d9;
+    }
+    
+    .search-box i {
+      color: #587b85;
+    }
+    
+    .search-box input {
+      border: none;
+      background: none;
+      padding: 0.5rem;
+      font-size: 0.95rem;
+      width: 250px;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    .search-box input:focus {
+      outline: none;
+    }
+    
+    .reset-btn {
+      background: transparent;
+      border: 1px solid #d4cdc4;
+      padding: 0.5rem 1rem;
+      border-radius: 40px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.3s ease;
+    }
+    
+    .reset-btn:hover {
+      background: #eae1d9;
+    }
+    
+    .stats {
+      text-align: center;
+      padding: 1rem;
+      background: #f5f2ee;
+      border-radius: 12px;
+      margin: 1rem 0;
+    }
+    
+    .no-results {
+      text-align: center;
+      padding: 3rem;
+      background: white;
+      border-radius: 24px;
+      border: 1px solid #ece8e2;
+    }
+    
+    .no-results i {
+      font-size: 3rem;
+      color: #587b85;
+      margin-bottom: 1rem;
+    }
+    
+    /* Course Price Styles */
+    .course-price {
+      margin: 0.5rem 0 1rem;
+    }
+    
+    .price-tag {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.25rem;
+      background: linear-gradient(135deg, #0a4d5c 0%, #0c5f72 100%);
+      color: white;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-weight: 600;
+    }
+    
+    .price-currency {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+    
+    .price-amount {
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    
+    .price-period {
+      font-size: 0.75rem;
+      font-weight: 400;
+      opacity: 0.9;
+    }
+    
+    .course-card .course-footer {
+      margin-top: auto;
+    }
+    
+    /* Update course card layout */
+    .course-content {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    /* Category Section Styling */
+    .category-section {
+      margin: 3rem 0;
+    }
+    
+    .category-title {
+      margin-bottom: 1.5rem;
+    }
+    
+    .course-card {
+      transition: all 0.3s ease;
+    }
+    
+    .course-card.hide {
+      display: none;
+    }
+    
+    @media (max-width: 768px) {
+      .filter-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .search-box input {
+        width: 180px;
+      }
+      
+      .filter-tabs {
+        width: 100%;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+      }
+      
+      .price-amount {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-content">
+      <div class="logo">
+        <a href="index.html">
+          <img src="uploads/Logo PP.png" alt="Panna Pathways logo">
+        </a>
+      </div>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="courses.html" class="active">Courses</a></li>
+          <li><a href="startup-consulting.html">Startup Consulting</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section-padding">
+      <div class="container">
+        <h1 class="reveal">Courses & Training Programs</h1>
+        <p class="reveal" style="font-size:1.2rem; max-width:800px;">We offer a wide range of corporate training, online courses, and psychometric assessments — all designed for real-world impact.</p>
+
+        <!-- Dynamic Filter Section -->
+        <div class="filter-section reveal">
+          <div class="filter-header">
+            <h3><i class="fas fa-filter"></i> Filter Courses <span class="filter-badge" id="courseCount">0</span></h3>
+            <div class="filter-tabs">
+              <button class="filter-btn active" data-filter="all">All Courses</button>
+              <button class="filter-btn" data-filter="corporate">Corporate Training</button>
+              <button class="filter-btn" data-filter="online">Online Courses</button>
+              <button class="filter-btn" data-filter="psychometric">Psychometric</button>
+              <button class="filter-btn" data-filter="trending">Trending 🔥</button>
+            </div>
+            <div class="search-box">
+              <i class="fas fa-search"></i>
+              <input type="text" id="searchInput" placeholder="Search courses...">
+              <button class="reset-btn" id="resetBtn"><i class="fas fa-times"></i> Reset</button>
+            </div>
+          </div>
+          <div class="stats" id="stats">
+            Showing all courses
+          </div>
+        </div>
+
+        <!-- Corporate Training Section -->
+        <div class="category-section" id="corporate-section">
+          <h2 class="reveal category-title"><i class="fas fa-building"></i> Corporate / Institutional Training Programs</h2>
+          <p class="reveal">In-depth workshops delivered at your premises or offsite. Each program includes pre-work, interactive sessions, and post-training reinforcement.</p>
+          
+          <div class="course-grid reveal" id="corporate-grid">
+            <!-- Time Management -->
+            <div class="course-card" data-category="corporate" data-trending="true" data-name="Time Management" data-price="1500">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1506784983877-45594efa4cbe?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Time Management">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-clock"></i> Time Management</h3>
+                <div class="course-meta">
+                  <span><i class="far fa-calendar-alt"></i> 1 day</span>
+                  <span><i class="fas fa-users"></i> All employees</span>
+                </div>
+                <div class="course-description">
+                  <p>Practical workshop on prioritization, delegation, and overcoming procrastination using the Eisenhower Matrix and time-blocking.</p>
+                </div>
+                <div class="course-outcomes">
+                  <p>✅ Participants leave with a personalized time management system and tools to reduce stress.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">15,00</span>
+                    <span class="price-period">/participant</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <span class="trending-tag"><i class="fas fa-fire"></i> Trending</span>
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Leadership Development -->
+            <div class="course-card" data-category="corporate" data-trending="false" data-name="Leadership Development" data-price="3500">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Leadership Development">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-chart-line"></i> Leadership Development</h3>
+                <div class="course-meta">
+                  <span><i class="far fa-calendar-alt"></i> 3 days (modular)</span>
+                  <span><i class="fas fa-users"></i> Aspiring & current managers</span>
+                </div>
+                <div class="course-description">
+                  <p>Comprehensive program covering situational leadership, giving feedback, emotional intelligence, and leading teams through change.</p>
+                </div>
+                <div class="course-outcomes">
+                  <p>✅ Leaders gain confidence in handling team dynamics and driving engagement.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">35,00</span>
+                    <span class="price-period">/participant</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Soft Skills Enhancement -->
+            <div class="course-card" data-category="corporate" data-trending="false" data-name="Soft Skills Enhancement" data-price="1200">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Soft Skills">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-comments"></i> Soft Skills Enhancement</h3>
+                <div class="course-meta">
+                  <span><i class="far fa-calendar-alt"></i> 2 days</span>
+                  <span><i class="fas fa-users"></i> Customer-facing & support</span>
+                </div>
+                <div class="course-description">
+                  <p>Communication, active listening, assertiveness, and business etiquette.</p>
+                </div>
+                <div class="course-outcomes">
+                  <p>✅ Improved client interactions and internal collaboration.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">12,00</span>
+                    <span class="price-period">/participant</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Emotional Intelligence -->
+            <div class="course-card" data-category="corporate" data-trending="true" data-name="Emotional Intelligence" data-price="1800">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Emotional Intelligence">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-heart"></i> Emotional Intelligence</h3>
+                <div class="course-meta">
+                  <span><i class="far fa-calendar-alt"></i> 2 days</span>
+                  <span><i class="fas fa-users"></i> All levels</span>
+                </div>
+                <div class="course-description">
+                  <p>Based on Daniel Goleman model: self-awareness, empathy, and relationship management through assessments and role-plays.</p>
+                </div>
+                <div class="course-outcomes">
+                  <p>✅ Reduced conflicts, better teamwork, and personal resilience.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">18,00</span>
+                    <span class="price-period">/participant</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <span class="trending-tag"><i class="fas fa-fire"></i> Trending</span>
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Team Building & Management -->
+            <div class="course-card" data-category="corporate" data-trending="false" data-name="Team Building Management" data-price="2500">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Team Building">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-users"></i> Team Building & Management</h3>
+                <div class="course-meta">
+                  <span><i class="far fa-calendar-alt"></i> 1-2 days</span>
+                  <span><i class="fas fa-users"></i> Existing teams</span>
+                </div>
+                <div class="course-description">
+                  <p>Experiential activities and facilitated discussions to build trust, clarify roles, and improve collaboration.</p>
+                </div>
+                <div class="course-outcomes">
+                  <p>✅ A more cohesive, motivated team.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">25,00</span>
+                    <span class="price-period">/team</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Employee Engagement -->
+            <div class="course-card" data-category="corporate" data-trending="false" data-name="Employee Engagement" data-price="2000">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Employee Engagement">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-hand-holding-heart"></i> Employee Engagement</h3>
+                <div class="course-meta">
+                  <span><i class="far fa-calendar-alt"></i> Half-day to full-day</span>
+                  <span><i class="fas fa-users"></i> HR & managers</span>
+                </div>
+                <div class="course-description">
+                  <p>Strategies to boost morale, recognition programs, and creating a positive work culture.</p>
+                </div>
+                <div class="course-outcomes">
+                  <p>✅ Higher retention and job satisfaction.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">20,00</span>
+                    <span class="price-period">/participant</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Campus to Corporate -->
+            <div class="course-card" data-category="corporate" data-trending="true" data-name="Campus to Corporate" data-price="1000">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Campus to Corporate">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-briefcase"></i> Campus to Corporate</h3>
+                <div class="course-meta">
+                  <span><i class="far fa-calendar-alt"></i> 3 days</span>
+                  <span><i class="fas fa-users"></i> Fresh graduates</span>
+                </div>
+                <div class="course-description">
+                  <p>Transition program covering professional communication, corporate etiquette, goal setting, and managing expectations.</p>
+                </div>
+                <div class="course-outcomes">
+                  <p>✅ New hires become productive faster with less culture shock.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">10,00</span>
+                    <span class="price-period">/participant</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <span class="trending-tag"><i class="fas fa-fire"></i> Popular</span>
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mindfulness at Work -->
+            <div class="course-card" data-category="corporate" data-trending="false" data-name="Mindfulness at Work" data-price="800">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mindfulness">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-spa"></i> Mindfulness at Work</h3>
+                <div class="course-meta">
+                  <span><i class="far fa-calendar-alt"></i> 1 day</span>
+                  <span><i class="fas fa-users"></i> All</span>
+                </div>
+                <div class="course-description">
+                  <p>Introduction to mindfulness, breathing techniques, and micro-practices to reduce stress and improve focus.</p>
+                </div>
+                <div class="course-outcomes">
+                  <p>✅ Employees report lower stress and higher clarity.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">8,00</span>
+                    <span class="price-period">/participant</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Career Counseling -->
+            <div class="course-card" data-category="corporate" data-trending="false" data-name="Career Counseling" data-price="300">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Career Counseling">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-compass"></i> Career Counseling</h3>
+                <div class="course-meta">
+                  <span><i class="far fa-calendar-alt"></i> 2-hour sessions</span>
+                  <span><i class="fas fa-users"></i> Individuals/groups</span>
+                </div>
+                <div class="course-description">
+                  <p>One-on-one or group sessions using psychometric tools to help individuals make informed career choices.</p>
+                </div>
+                <div class="course-outcomes">
+                  <p>✅ Clarity and confidence in career decisions.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">3,00</span>
+                    <span class="price-period">/session</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Online Courses Section -->
+        <div class="category-section" id="online-section">
+          <h2 class="reveal category-title"><i class="fas fa-laptop"></i> Online Courses (Live & Self-Paced)</h2>
+          <p class="reveal">Learn from anywhere with our structured online programs. All include live Q&A sessions and recorded materials.</p>
+          
+          <div class="course-grid reveal" id="online-grid">
+            <!-- Spoken English -->
+            <div class="course-card" data-category="online" data-trending="false" data-name="Spoken English" data-price="500">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Spoken English">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-language"></i> Spoken English</h3>
+                <div class="course-meta">
+                  <span><i class="fas fa-clock"></i> Basic & Advanced</span>
+                </div>
+                <div class="course-description">
+                  <p>Fluency, grammar, and confidence for daily and professional use.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">5,00</span>
+                    <span class="price-period">/course</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- AI Literacy -->
+            <div class="course-card" data-category="online" data-trending="true" data-name="AI Literacy" data-price="700">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="AI Literacy">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-robot"></i> AI Literacy</h3>
+                <div class="course-description">
+                  <p>Understand AI tools, prompt engineering, and ethical use for non‑tech professionals.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">7,00</span>
+                    <span class="price-period">/course</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <span class="trending-tag"><i class="fas fa-fire"></i> New</span>
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Stress Management & Yoga -->
+            <div class="course-card" data-category="online" data-trending="false" data-name="Stress Management Yoga" data-price="4500">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Yoga">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-heartbeat"></i> Stress Management & Yoga</h3>
+                <div class="course-description">
+                  <p>Practical yoga asanas and breathwork to manage daily stress.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">4,500</span>
+                    <span class="price-period">/course</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Personality Development -->
+            <div class="course-card" data-category="online" data-trending="false" data-name="Personality Development" data-price="600">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Personality Development">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-smile"></i> Personality Development</h3>
+                <div class="course-description">
+                  <p>Self-awareness, grooming, and interpersonal skills for young adults.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">6,00</span>
+                    <span class="price-period">/course</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Soft Skills -->
+            <div class="course-card" data-category="online" data-trending="false" data-name="Soft Skills" data-price="5500">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1552581234-26160f608093?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Soft Skills">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-handshake"></i> Soft Skills</h3>
+                <div class="course-description">
+                  <p>Communication, teamwork, and presentation skills.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">5,500</span>
+                    <span class="price-period">/course</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Leadership Management -->
+            <div class="course-card" data-category="online" data-trending="false" data-name="Leadership Management" data-price="800">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Leadership">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-users-cog"></i> Leadership Management</h3>
+                <div class="course-description">
+                  <p>Essentials of leading teams and projects.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">8,00</span>
+                    <span class="price-period">/course</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Organizational Behaviour -->
+            <div class="course-card" data-category="online" data-trending="false" data-name="Organizational Behaviour" data-price="7500">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1552581234-26160f608093?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Organizational Behaviour">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-building"></i> Organizational Behaviour</h3>
+                <div class="course-description">
+                  <p>Understanding individual and group behaviour in organizations.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">7,500</span>
+                    <span class="price-period">/course</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Conflict Management -->
+            <div class="course-card" data-category="online" data-trending="false" data-name="Conflict Management" data-price="6500">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1573497491208-6b1acb260507?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Conflict Management">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-balance-scale"></i> Conflict Management</h3>
+                <div class="course-description">
+                  <p>Techniques to resolve disputes constructively.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">6,500</span>
+                    <span class="price-period">/course</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Communication Skills -->
+            <div class="course-card" data-category="online" data-trending="false" data-name="Communication Skills" data-price="5500">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Communication">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-bullhorn"></i> Communication Skills</h3>
+                <div class="course-description">
+                  <p>Verbal, non-verbal, and written communication mastery.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">5,500</span>
+                    <span class="price-period">/course</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pranayama -->
+            <div class="course-card" data-category="online" data-trending="false" data-name="Pranayama" data-price="3500">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pranayama">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-wind"></i> Pranayama</h3>
+                <div class="course-description">
+                  <p>Breathing techniques for energy and calm.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">3,500</span>
+                    <span class="price-period">/course</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Yoga Nidra -->
+            <div class="course-card" data-category="online" data-trending="false" data-name="Yoga Nidra" data-price="3500">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Yoga Nidra">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-bed"></i> Yoga Nidra</h3>
+                <div class="course-description">
+                  <p>Guided relaxation for deep rest.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">3,500</span>
+                    <span class="price-period">/course</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mental Wellness Yoga -->
+            <div class="course-card" data-category="online" data-trending="false" data-name="Mental Wellness Yoga" data-price="500">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1588286840104-8957b019727f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Mental Wellness">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-brain"></i> Mental Wellness Yoga</h3>
+                <div class="course-description">
+                  <p>Yoga for anxiety, focus, and emotional balance.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">5,00</span>
+                    <span class="price-period">/course</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Register →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Psychometric Assessments Section -->
+        <div class="category-section" id="psychometric-section">
+          <h2 class="reveal category-title"><i class="fas fa-chart-pie"></i> Psychometric Assessments</h2>
+          <div class="course-grid reveal" id="psychometric-grid">
+            <div class="course-card" data-category="psychometric" data-trending="false" data-name="Psychometric Purpose" data-price="2500">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Psychometric">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-search"></i> Individual Assessment</h3>
+                <div class="course-description">
+                  <p>Uncover hidden strengths, work preferences, and developmental areas. Used for career guidance, team building, and leadership development.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">2,500</span>
+                    <span class="price-period">/assessment</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Enquire →</a>
+                </div>
+              </div>
+            </div>
+            <div class="course-card" data-category="psychometric" data-trending="false" data-name="Types of Tests" data-price="1500">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Test Types">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-clipboard-list"></i> Corporate Assessment Package</h3>
+                <div class="course-description">
+                  <p>MBTI Step I, Emotional Intelligence (EQ-i 2.0), Strong Interest Inventory, DISC, and 16PF for teams.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">15,00</span>
+                    <span class="price-period">/team (up to 10)</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Enquire →</a>
+                </div>
+              </div>
+            </div>
+            <div class="course-card" data-category="psychometric" data-trending="false" data-name="Who Benefits" data-price="500">
+              <div class="course-image">
+                <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Who Benefits">
+              </div>
+              <div class="course-content">
+                <h3><i class="fas fa-user-check"></i> Career Guidance Package</h3>
+                <div class="course-description">
+                  <p>Complete career guidance with assessment, counseling session, and personalized roadmap.</p>
+                </div>
+                <div class="course-price">
+                  <span class="price-tag">
+                    <span class="price-currency">₹</span>
+                    <span class="price-amount">5,00</span>
+                    <span class="price-period">/package</span>
+                  </span>
+                </div>
+                <div class="course-footer">
+                  <a href="contact.html" class="btn-register">Enquire →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <h3>Panna Pathways</h3>
+          <p>Holistic training and consulting based in Nashik, India — nurturing skills, mindset, and human potential.</p>
+        </div>
+        <div class="footer-links">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="courses.html">Courses</a></li>
+            <li><a href="startup-consulting.html">Startup Consulting</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer-contact">
+          <h4>Contact</h4>
+          <p><i class="fas fa-envelope"></i> nextgenleadership25@gmail.com</p>
+          <p><i class="fas fa-map-marker-alt"></i> Nashik, Maharashtra, India</p>
+          <p><i class="fas fa-phone-alt"></i> +91 81491 95052</p>
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="copyright">
+        <p>&copy; 2025 Panna Pathways. All rights reserved.| Designed & Developed by Team ThriveAxis.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+  <script>
+    // Dynamic Filter Functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const searchInput = document.getElementById('searchInput');
+      const resetBtn = document.getElementById('resetBtn');
+      const courseCountSpan = document.getElementById('courseCount');
+      const statsDiv = document.getElementById('stats');
+      
+      // Get all course cards
+      const allCourseCards = document.querySelectorAll('.course-card');
+      
+      let currentFilter = 'all';
+      let currentSearch = '';
+      
+      // Function to filter and search courses
+      function filterCourses() {
+        let visibleCount = 0;
+        
+        allCourseCards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          const isTrending = card.getAttribute('data-trending') === 'true';
+          const courseName = card.getAttribute('data-name').toLowerCase();
+          
+          let matchesFilter = false;
+          let matchesSearch = true;
+          
+          // Filter logic
+          if (currentFilter === 'all') {
+            matchesFilter = true;
+          } else if (currentFilter === 'corporate') {
+            matchesFilter = category === 'corporate';
+          } else if (currentFilter === 'online') {
+            matchesFilter = category === 'online';
+          } else if (currentFilter === 'psychometric') {
+            matchesFilter = category === 'psychometric';
+          } else if (currentFilter === 'trending') {
+            matchesFilter = isTrending === true;
+          }
+          
+          // Search logic
+          if (currentSearch !== '') {
+            matchesSearch = courseName.includes(currentSearch);
+          }
+          
+          // Show/hide card
+          if (matchesFilter && matchesSearch) {
+            card.classList.remove('hide');
+            visibleCount++;
+          } else {
+            card.classList.add('hide');
+          }
+        });
+        
+        // Update stats and count
+        courseCountSpan.textContent = visibleCount;
+        
+        if (visibleCount === 0) {
+          statsDiv.innerHTML = '<i class="fas fa-info-circle"></i> No courses found. Try adjusting your filters.';
+        } else {
+          let filterText = '';
+          if (currentFilter === 'all') filterText = 'all courses';
+          else if (currentFilter === 'corporate') filterText = 'corporate training';
+          else if (currentFilter === 'online') filterText = 'online courses';
+          else if (currentFilter === 'psychometric') filterText = 'psychometric assessments';
+          else if (currentFilter === 'trending') filterText = 'trending courses';
+          
+          if (currentSearch !== '') {
+            statsDiv.innerHTML = `Showing ${visibleCount} ${filterText} matching "${currentSearch}"`;
+          } else {
+            statsDiv.innerHTML = `Showing ${visibleCount} ${filterText}`;
+          }
+        }
+        
+        // Show/hide section headers based on visible content
+        const sections = ['corporate-section', 'online-section', 'psychometric-section'];
+        sections.forEach(sectionId => {
+          const section = document.getElementById(sectionId);
+          if (section) {
+            const visibleCards = section.querySelectorAll('.course-card:not(.hide)');
+            if (visibleCards.length === 0 && currentFilter !== 'all') {
+              section.style.display = 'none';
+            } else {
+              section.style.display = 'block';
+            }
+          }
+        });
+      }
+      
+      // Add click event to filter buttons
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          // Remove active class from all buttons
+          filterBtns.forEach(b => b.classList.remove('active'));
+          // Add active class to clicked button
+          this.classList.add('active');
+          // Update current filter
+          currentFilter = this.getAttribute('data-filter');
+          // Apply filters
+          filterCourses();
+        });
+      });
+      
+      // Search functionality
+      searchInput.addEventListener('input', function(e) {
+        currentSearch = e.target.value.toLowerCase().trim();
+        filterCourses();
+      });
+      
+      // Reset button functionality
+      resetBtn.addEventListener('click', function() {
+        searchInput.value = '';
+        currentSearch = '';
+        currentFilter = 'all';
+        
+        // Reset filter buttons
+        filterBtns.forEach(btn => {
+          if (btn.getAttribute('data-filter') === 'all') {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+        
+        filterCourses();
+      });
+      
+      // Initial filter call
+      filterCourses();
+    });
+  </script>
+</body>
+</html>
