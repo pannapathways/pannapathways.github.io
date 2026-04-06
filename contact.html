@@ -8,9 +8,305 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="css/style.css">
+  
   <style>
-    /* Hero Section Enhancement */
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #faf9f8;
+      color: #1e2b2f;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      color: #0a4d5c;
+    }
+
+    h2 {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      margin-bottom: 2rem;
+      color: #0a4d5c;
+      border-left: 6px solid #0a4d5c;
+      padding-left: 1rem;
+    }
+
+    h3 {
+      font-size: clamp(1.25rem, 3vw, 1.5rem);
+      font-weight: 500;
+      margin-bottom: 1rem;
+      color: #1e2b2f;
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+      font-size: clamp(0.95rem, 2vw, 1.0625rem);
+      color: #2d3f45;
+    }
+
+    /* ===== HEADER ===== */
+    .site-header {
+      background: #ffffff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid #eae6e1;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .logo a {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+
+    .logo img {
+      height: 50px;
+      width: auto;
+      max-width: 120px;
+      object-fit: contain;
+    }
+
+    .nav-list {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-list a {
+      text-decoration: none;
+      color: #2d3f45;
+      font-weight: 500;
+      font-size: 1rem;
+      transition: color 0.2s;
+      padding-bottom: 4px;
+      border-bottom: 2px solid transparent;
+    }
+
+    .nav-list a:hover,
+    .nav-list a.active {
+      color: #0a4d5c;
+      border-bottom-color: #0a4d5c;
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-block;
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background: #0a4d5c;
+      color: white;
+      box-shadow: 0 6px 12px rgba(10,77,92,0.15);
+    }
+
+    .btn-primary:hover {
+      background: #0c5f72;
+      transform: translateY(-2px);
+    }
+
+    /* ===== FOOTER ===== */
+    .site-footer {
+      background: linear-gradient(135deg, #1e3b40 0%, #123036 100%);
+      color: #e0f0f2;
+      padding: 3rem 0 1.5rem;
+      margin-top: 4rem;
+      border-top: 1px solid #2f5a63;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-brand h3 {
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+    }
+
+    .footer-brand p {
+      color: #bcd7dc;
+      margin: 1rem 0 0;
+      font-size: 0.95rem;
+    }
+
+    .footer-links h4,
+    .footer-contact h4 {
+      color: #ffffff;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      color: #c5dce1;
+      text-decoration: none;
+      transition: color 0.2s;
+      font-size: 0.95rem;
+    }
+
+    .footer-links a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    .footer-contact p {
+      margin-bottom: 0.75rem;
+      color: #c5dce1;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.95rem;
+      flex-wrap: wrap;
+    }
+
+    .footer-contact i {
+      width: 20px;
+      color: #7ab3c0;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .social-icons a {
+      color: #ffffff;
+      background: #2f5a63;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.2s;
+      text-decoration: none;
+    }
+
+    .social-icons a:hover {
+      background: #0a4d5c;
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      text-align: center;
+      border-top: 2px solid #4a7c88;
+      padding-top: 1.8rem;
+      margin-top: 0.5rem;
+    }
+
+    .copyright p {
+      color: #f0f7f9;
+      font-size: 0.9rem;
+      font-weight: 500;
+      margin-bottom: 0;
+    }
+
+    /* ===== FORM STYLES ===== */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      color: #1e2b2f;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.8rem 1.2rem;
+      border: 1px solid #d4cdc4;
+      border-radius: 50px;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: border 0.2s;
+    }
+
+    .form-group textarea {
+      border-radius: 24px;
+      resize: vertical;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #0a4d5c;
+    }
+
+    /* Section padding */
+    .section-padding {
+      padding: clamp(2rem, 6vw, 4rem) 0;
+    }
+
+    /* Reveal animation */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Contact Page Specific Styles */
     .contact-hero {
       background: linear-gradient(135deg, #0a4d5c 0%, #0c5f72 100%);
       padding: 4rem 0;
@@ -44,7 +340,6 @@
       margin: 0 auto;
     }
     
-    /* Contact Cards */
     .contact-info-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -117,7 +412,6 @@
       font-weight: 500;
     }
     
-    /* Form Container */
     .form-container {
       background: white;
       border-radius: 32px;
@@ -141,7 +435,6 @@
       border: none;
     }
     
-    /* Form Status Styles */
     .form-status {
       margin-top: 1rem;
       padding: 1rem;
@@ -206,7 +499,6 @@
       color: #e74c3c;
     }
     
-    /* Honeypot - hidden field for spam prevention */
     .honeypot {
       position: absolute;
       left: -9999px;
@@ -214,7 +506,6 @@
       pointer-events: none;
     }
     
-    /* Business Hours */
     .business-hours {
       background: #f5f2ee;
       border-radius: 16px;
@@ -228,7 +519,6 @@
       margin-right: 0.5rem;
     }
     
-    /* Responsive */
     @media (max-width: 1024px) {
       .contact-info-grid {
         grid-template-columns: repeat(3, 1fr);
@@ -247,6 +537,20 @@
       
       .contact-hero {
         padding: 2rem 0;
+      }
+      
+      .header-content {
+        flex-direction: column;
+      }
+      
+      .nav-list {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+      }
+      
+      [style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
       }
     }
   </style>
@@ -272,7 +576,6 @@
   </header>
 
   <main>
-    <!-- Hero Section with Background -->
     <section class="contact-hero">
       <div class="container">
         <h1 class="reveal">Let's Start a Conversation</h1>
@@ -282,7 +585,6 @@
 
     <section class="section-padding" style="padding-top: 0;">
       <div class="container">
-        <!-- Contact Info Cards -->
         <div class="contact-info-grid reveal">
           <div class="contact-info-card">
             <div class="contact-icon">
@@ -313,14 +615,12 @@
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
-          <!-- Registration Form -->
           <div class="reveal">
             <div class="form-container">
               <h2 style="border-left: none; padding-left: 0; margin-bottom: 1.5rem; text-align: center;">Get in Touch</h2>
               <p style="text-align: center; margin-bottom: 2rem; color: #587b85;">Fill out the form below and we'll get back to you soon</p>
               
               <form id="registrationForm" novalidate>
-                <!-- Honeypot field for spam prevention -->
                 <div class="honeypot">
                   <label for="website">Website</label>
                   <input type="text" id="website" name="website" value="">
@@ -345,12 +645,12 @@
                   <label for="service"><i class="fas fa-cog"></i> Select Service <span class="required-field">*</span></label>
                   <select id="service" name="service" required>
                     <option value="">-- Choose an option --</option>
-                    <option value="corporate-training">Corporate Training</option>
-                    <option value="online-course">Online Course</option>
-                    <option value="startup-consulting">Startup Consulting</option>
-                    <option value="psychometric">Psychometric Assessment</option>
-                    <option value="career-counseling">Career Counseling</option>
-                    <option value="other">Other</option>
+                    <option value="Corporate Training">Corporate Training</option>
+                    <option value="Online Course">Online Course</option>
+                    <option value="Startup Consulting">Startup Consulting</option>
+                    <option value="Psychometric Assessment">Psychometric Assessment</option>
+                    <option value="Career Counseling">Career Counseling</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
                 
@@ -373,7 +673,6 @@
             </div>
           </div>
 
-          <!-- Map & Business Hours -->
           <div class="reveal">
             <div class="map-container">
               <h3 style="margin-bottom: 1rem;"><i class="fas fa-map"></i> Find Us</h3>
@@ -392,10 +691,10 @@
               </div>
               
               <div class="social-icons" style="justify-content: center; margin-top: 1.5rem;">
-                <a href="#" style="background: #0a4d5c;"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" style="background: #0a4d5c;"><i class="fab fa-instagram"></i></a>
-                <a href="#" style="background: #0a4d5c;"><i class="fab fa-linkedin-in"></i></a>
-                <a href="#" style="background: #0a4d5c;"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
               </div>
             </div>
           </div>
@@ -438,12 +737,27 @@
     </div>
   </footer>
 
-  <script src="js/script.js"></script>
   <script>
-    // Google Apps Script Web App URL - REPLACE WITH YOUR ACTUAL URL
-    const GOOGLE_SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbxbsoMZZVaw2RsG8PpQQN8oRgp_9KLW-ExRJ6hxHL1LDCqsecZjJvW9jacdSYkZt1Jg/exec';
+    // Add reveal animation on scroll
+    document.addEventListener('DOMContentLoaded', function() {
+      const revealElements = document.querySelectorAll('.reveal');
+      
+      if (revealElements.length > 0) {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('active');
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+        revealElements.forEach(el => observer.observe(el));
+      }
+    });
+
+    // Google Apps Script Web App URL
+    const GOOGLE_SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycbwjMGel1fCL9MzS8Q_paOjLtRC1_3_oY6fMo0Xds51Hm3YRdoWV8sbV7pPDH7iS8nFc/exec';
     
-    // Spam detection patterns
     const spamPatterns = [
       /cbd/i, /viagra/i, /casino/i, /poker/i, /lottery/i,
       /bitcoin/i, /cryptocurrency/i, /loan/i, /mortgage/i,
@@ -455,8 +769,6 @@
       for (const pattern of spamPatterns) {
         if (pattern.test(allFields)) return true;
       }
-      const repeatedChars = /(.)\1{10,}/;
-      if (repeatedChars.test(allFields)) return true;
       return false;
     }
     
@@ -466,13 +778,11 @@
     }
     
     function isValidPhone(phone) {
-      const phonePattern = /^[6-9]\d{9}$/;
-      return phonePattern.test(phone);
+      return /^[6-9]\d{9}$/.test(phone);
     }
     
     function isValidEmail(email) {
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      return emailPattern.test(email);
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
     
     function showStatus(message, type) {
@@ -486,7 +796,7 @@
       }
     }
     
-    async function sendToGoogleSheets(formData) {
+    async function submitToGoogleSheets(formData) {
       try {
         const response = await fetch(GOOGLE_SHEETS_API_URL, {
           method: 'POST',
@@ -496,84 +806,86 @@
         });
         return true;
       } catch (error) {
-        console.error('Error:', error);
+        console.error('Submission error:', error);
         return false;
       }
     }
     
-    document.getElementById('registrationForm').addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      const submitBtn = this.querySelector('.submit-btn');
-      const name = sanitizeInput(document.getElementById('name').value);
-      const email = sanitizeInput(document.getElementById('email').value);
-      const phone = sanitizeInput(document.getElementById('phone').value);
-      const service = document.getElementById('service').value;
-      const message = sanitizeInput(document.getElementById('message').value);
-      const honeypot = sanitizeInput(document.getElementById('website').value);
-      
-      let errors = [];
-      
-      if (!name) errors.push('Full name is required');
-      if (!email) errors.push('Email is required');
-      if (email && !isValidEmail(email)) errors.push('Please enter a valid email address');
-      if (!phone) errors.push('Phone number is required');
-      if (phone && !isValidPhone(phone)) errors.push('Please enter a valid 10-digit mobile number');
-      if (!service) errors.push('Please select a service');
-      if (!message) errors.push('Message cannot be blank');
-      
-      if (honeypot) {
-        showStatus('Thank you for your message. We will get back to you soon.', 'success');
-        this.reset();
-        return;
-      }
-      
-      if (errors.length > 0) {
-        showStatus(errors.join('. '), 'error');
-        return;
-      }
-      
-      const formDataObj = { name, email, phone, service, message };
-      if (isSpam(formDataObj)) {
-        showStatus('Thank you for your message. We will get back to you soon.', 'success');
-        this.reset();
-        return;
-      }
-      
-      submitBtn.classList.add('loading');
-      submitBtn.disabled = true;
-      showStatus('Sending your message...', 'loading');
-      
-      const timestamp = new Date().toISOString();
-      const formDataToSend = {
-        timestamp: timestamp,
-        name: name,
-        email: email,
-        phone: phone,
-        service: service,
-        message: message,
-        status: 'new'
-      };
-      
-      const success = await sendToGoogleSheets(formDataToSend);
-      
-      submitBtn.classList.remove('loading');
-      submitBtn.disabled = false;
-      
-      if (success) {
-        showStatus('Thank you! Your enquiry has been sent successfully. We will contact you within 24 hours.', 'success');
-        this.reset();
-      } else {
-        showStatus('Your enquiry has been saved. We will contact you soon!', 'success');
-        this.reset();
-      }
-    });
+    const form = document.getElementById('registrationForm');
+    if (form) {
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        const submitBtn = this.querySelector('.submit-btn');
+        const name = sanitizeInput(document.getElementById('name').value);
+        const email = sanitizeInput(document.getElementById('email').value);
+        const phone = sanitizeInput(document.getElementById('phone').value);
+        const service = document.getElementById('service').value;
+        const message = sanitizeInput(document.getElementById('message').value);
+        const honeypot = sanitizeInput(document.getElementById('website').value);
+        
+        let errors = [];
+        if (!name) errors.push('Full name is required');
+        if (!email) errors.push('Email is required');
+        if (email && !isValidEmail(email)) errors.push('Please enter a valid email address');
+        if (!phone) errors.push('Phone number is required');
+        if (phone && !isValidPhone(phone)) errors.push('Please enter a valid 10-digit mobile number');
+        if (!service) errors.push('Please select a service');
+        if (!message) errors.push('Message cannot be blank');
+        
+        if (honeypot) {
+          showStatus('Thank you for your message. We will get back to you soon.', 'success');
+          this.reset();
+          return;
+        }
+        
+        if (errors.length > 0) {
+          showStatus(errors.join('. '), 'error');
+          return;
+        }
+        
+        const formDataObj = { name, email, phone, service, message };
+        if (isSpam(formDataObj)) {
+          showStatus('Thank you for your message. We will get back to you soon.', 'success');
+          this.reset();
+          return;
+        }
+        
+        submitBtn.classList.add('loading');
+        submitBtn.disabled = true;
+        showStatus('Sending your message...', 'loading');
+        
+        const submissionData = {
+          timestamp: new Date().toISOString(),
+          name: name,
+          email: email,
+          phone: phone,
+          service: service,
+          message: message,
+          status: 'new'
+        };
+        
+        const success = await submitToGoogleSheets(submissionData);
+        
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+        
+        if (success) {
+          showStatus('Thank you! A confirmation email has been sent to your inbox. We will contact you within 24 hours.', 'success');
+          this.reset();
+        } else {
+          showStatus('Your enquiry has been saved. We will contact you soon!', 'success');
+          this.reset();
+        }
+      });
+    }
     
-    // Real-time validation
     const phoneInput = document.getElementById('phone');
-    phoneInput.addEventListener('input', function(e) {
-      this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
-    });
+    if (phoneInput) {
+      phoneInput.addEventListener('input', function(e) {
+        this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
+      });
+    }
   </script>
 </body>
 </html>
