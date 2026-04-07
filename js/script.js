@@ -1,62 +1,108 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // ===== HAMBURGER MENU =====
-  const createHamburgerMenu = () => {
-    // Check if hamburger button already exists
-    if (document.querySelector('.hamburger-btn')) return;
+  // ===== HAMBURGER MENU - FIXED VERSION WITH PROPER NAVIGATION =====
+  function initHamburgerMenu() {
+    // Remove existing hamburger button if any to avoid duplicates
+    const existingHamburger = document.querySelector('.hamburger-btn');
+    if (existingHamburger) {
+      existingHamburger.remove();
+    }
     
+    const headerContent = document.querySelector('.header-content');
     const nav = document.querySelector('nav');
-    const navList = document.querySelector('.nav-list');
     
-    if (!nav || !navList) return;
+    // Check if we're on mobile (width <= 768px)
+    const isMobile = () => window.innerWidth <= 768;
     
-    // Create hamburger button
-    const hamburger = document.createElement('div');
-    hamburger.className = 'hamburger-btn';
-    hamburger.innerHTML = '<span></span><span></span><span></span>';
+    if (!headerContent || !nav) return;
     
-    // Insert hamburger button before nav
-    nav.parentNode.insertBefore(hamburger, nav);
-    
-    // Add classes for mobile styling
-    hamburger.addEventListener('click', function() {
-      this.classList.toggle('active');
-      nav.classList.toggle('active');
-      document.body.classList.toggle('menu-open');
-    });
-    
-    // Close menu when clicking on a link
-    const navLinks = document.querySelectorAll('.nav-list a');
-    navLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        nav.classList.remove('active');
-        document.body.classList.remove('menu-open');
+    // Only create hamburger button if we're on mobile
+    if (isMobile() && !document.querySelector('.hamburger-btn')) {
+      const hamburger = document.createElement('div');
+      hamburger.className = 'hamburger-btn';
+      hamburger.setAttribute('aria-label', 'Menu');
+      hamburger.setAttribute('role', 'button');
+      hamburger.innerHTML = '<span></span><span></span><span></span>';
+      
+      // Insert hamburger button
+      headerContent.appendChild(hamburger);
+      
+      // Toggle menu function
+      const toggleMenu = (e) => {
+        if (e) e.stopPropagation();
+        hamburger.classList.toggle('active');
+        nav.classList.toggle('active');
+        document.body.classList.toggle('menu-open');
+      };
+      
+      // Add click event to hamburger button
+      hamburger.addEventListener('click', toggleMenu);
+      
+      // Close menu when clicking on a link - BUT DON'T PREVENT DEFAULT NAVIGATION
+      const navLinks = document.querySelectorAll('.nav-list a');
+      navLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          // Just close the menu, don't interfere with navigation
+          hamburger.classList.remove('active');
+          nav.classList.remove('active');
+          document.body.classList.remove('menu-open');
+          // Allow the link to navigate normally
+        });
       });
-    });
+      
+      // Close menu when clicking outside (but not on links)
+      document.addEventListener('click', function(event) {
+        if (nav.classList.contains('active') && 
+            !nav.contains(event.target) && 
+            !hamburger.contains(event.target)) {
+          hamburger.classList.remove('active');
+          nav.classList.remove('active');
+          document.body.classList.remove('menu-open');
+        }
+      });
+      
+      // Prevent clicks inside nav from closing the menu
+      nav.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    }
     
-    // Close menu when clicking outside
-    document.addEventListener('click', function(event) {
-      if (!nav.contains(event.target) && !hamburger.contains(event.target) && nav.classList.contains('active')) {
-        hamburger.classList.remove('active');
-        nav.classList.remove('active');
-        document.body.classList.remove('menu-open');
-      }
-    });
-    
-    // Handle window resize - reset menu if screen becomes larger
-    window.addEventListener('resize', function() {
+    // Handle window resize
+    function handleResize() {
+      const hamburger = document.querySelector('.hamburger-btn');
       if (window.innerWidth > 768) {
-        hamburger.classList.remove('active');
-        nav.classList.remove('active');
+        if (hamburger) {
+          hamburger.classList.remove('active');
+        }
+        if (nav) {
+          nav.classList.remove('active');
+        }
         document.body.classList.remove('menu-open');
+      } else {
+        // If we're on mobile and hamburger doesn't exist, reinitialize
+        if (!document.querySelector('.hamburger-btn')) {
+          initHamburgerMenu();
+        }
       }
-    });
-  };
+    }
+    
+    window.removeEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize);
+  }
   
   // Initialize hamburger menu
-  createHamburgerMenu();
+  initHamburgerMenu();
+  
+  // Re-initialize on page load (for when page is loaded from cache)
+  window.addEventListener('load', initHamburgerMenu);
+  
+  // Also re-initialize when page becomes visible (for mobile back/forward navigation)
+  document.addEventListener('visibilitychange', function() {
+    if (!document.hidden) {
+      setTimeout(initHamburgerMenu, 100);
+    }
+  });
 
-  // Scroll reveal
+  // ===== SCROLL REVEAL =====
   const revealElements = document.querySelectorAll('.reveal');
   
   if (revealElements.length > 0) {
@@ -71,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
     revealElements.forEach(el => observer.observe(el));
   }
 
-  // Sticky header shadow
+  // ===== STICKY HEADER SHADOW =====
   const header = document.querySelector('.site-header');
   if (header) {
     window.addEventListener('scroll', () => {
@@ -83,7 +129,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Smooth scroll for anchor links
+  // ===== SMOOTH SCROLL FOR ANCHOR LINKS (only for internal page links) =====
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
@@ -96,65 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Contact form validation
-  const contactForm = document.getElementById('registrationForm');
-  if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      document.querySelectorAll('.error-message').forEach(el => el.remove());
-      
-      let isValid = true;
-      
-      const name = document.getElementById('name');
-      if (!name.value.trim()) {
-        showError(name, 'Full name is required');
-        isValid = false;
-      }
-      
-      const email = document.getElementById('email');
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!email.value.trim()) {
-        showError(email, 'Email is required');
-        isValid = false;
-      } else if (!emailPattern.test(email.value.trim())) {
-        showError(email, 'Enter a valid email address');
-        isValid = false;
-      }
-      
-      const phone = document.getElementById('phone');
-      const phonePattern = /^[0-9]{10}$/;
-      if (!phone.value.trim()) {
-        showError(phone, 'Phone number is required');
-        isValid = false;
-      } else if (!phonePattern.test(phone.value.trim())) {
-        showError(phone, 'Enter a 10-digit mobile number');
-        isValid = false;
-      }
-      
-      const service = document.getElementById('service');
-      if (!service.value) {
-        showError(service, 'Please select a service');
-        isValid = false;
-      }
-      
-      const message = document.getElementById('message');
-      if (!message.value.trim()) {
-        showError(message, 'Message cannot be blank');
-        isValid = false;
-      }
-      
-      if (isValid) {
-        alert('Thank you! Your enquiry has been sent. We will contact you soon.');
-        contactForm.reset();
-      }
-    });
-
-    function showError(input, text) {
-      const error = document.createElement('div');
-      error.className = 'error-message';
-      error.textContent = text;
-      input.parentNode.insertBefore(error, input.nextSibling);
-    }
-  }
-});
+  // ===== CONTACT FORM VALIDATION - REMOVED POPUP ALERT =====
+  // The form is now handled by the inline script in contact.html
+  // This prevents duplicate form handling
+});s
