@@ -2082,8 +2082,7 @@ nav {
     }
 
 
-
-/* Professional Featured Testimonial - Light Navy Blue Background */
+    /* Professional Featured Testimonial - Light Navy Blue Background */
     .featured-testimonial {
       background: linear-gradient(135deg, #1a2f3f 0%, #1a3a4a 100%);
       border-radius: 28px;
@@ -2286,19 +2285,6 @@ nav {
       text-decoration: underline;
     }
     
-    /* Startup Badge */
-    .startup-badge {
-      display: inline-block;
-      background: rgba(255,184,0,0.15);
-      color: #ffb800;
-      font-size: 0.7rem;
-      font-weight: 600;
-      padding: 0.2rem 0.8rem;
-      border-radius: 20px;
-      margin-left: 0.6rem;
-      vertical-align: middle;
-    }
-    
     /* Responsive Styles */
     @media (max-width: 968px) {
       .featured-testimonial {
@@ -2403,11 +2389,8 @@ nav {
       .company-details span {
         font-size: 0.75rem;
       }
-      
-      .startup-badge {
-        font-size: 0.6rem;
-        padding: 0.15rem 0.6rem;
-        margin-left: 0.4rem;
-      }
     }
+
+
+
   
